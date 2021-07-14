@@ -114,4 +114,32 @@ public class BroadSocket {
       }
     });
   }
+  
+  public static void bloadCastSend(String chatRoomId, String msg)
+  {
+	    
+	    System.out.println(chatRoomId);
+
+	    // クライアントセッションリストからセッションを繰り返して取得する。
+	    sessionUsers.forEach(sessionUser -> {
+	      // 取得したセッションとメッセージを送ったセッションは同じなら返事しない。
+	      try {
+	        if (configs.containsKey(sessionUser)) {
+	          EndpointConfig config = configs.get(sessionUser);
+	          // HttpSessionConfiguratorから設定したsessionを取得する。
+	          HttpSession httpSeesion = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
+
+	          String userChatRoomId = (String) httpSeesion.getAttribute("chatRoomId");
+	          if (userChatRoomId.equals(chatRoomId)) {
+	            // 同じチャットルームIDのユーザーにメッセージ送信
+	            sessionUser.getBasicRemote().sendText(msg);
+	          }
+	        }
+
+	      } catch (IOException e) {
+	        // エラーが発生するとコンソールに出力する。
+	        e.printStackTrace();
+	      }
+	    }); 
+  }
 }
