@@ -21,7 +21,7 @@ public class ChatRoomDAO extends DAOBase {
         while (rs.next()) {
 	        // 値セット
 	        record.setChatRoomName(rs.getString("chat_room_name"));
-	        record.setChatRoomName(rs.getString("password"));
+	        record.setPassword(rs.getString("password"));
 	
 	        bean.addRecord(record);
         }
