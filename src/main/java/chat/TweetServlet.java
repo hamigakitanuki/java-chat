@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.bean.ChatBean;
-import dao.dao.ChatDAO2;
+import dao.dao.ChatDAO;
 import dao.exception.DatabaseException;
 import dao.exception.SystemException;
 
@@ -27,7 +27,7 @@ public class TweetServlet extends HttpServlet {
 	  
     try {
     	
-	    ChatDAO2 dao = new ChatDAO2();
+	    ChatDAO dao = new ChatDAO();
 	    tweetBean = (ChatBean) dao.getBean();
 	    HttpSession session = request.getSession();
 	    session.setAttribute("twtBean", tweetBean);

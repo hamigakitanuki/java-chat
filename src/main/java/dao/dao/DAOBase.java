@@ -12,7 +12,7 @@ import dao.exception.SystemException;
 import dao.parameter.DAOParameters;
 import dao.parameter.ExceptionParameters;
 
-public class DAOBase2{
+public class DAOBase{
   Connection con;
   Statement stmt;
   String tableName;
