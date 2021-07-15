@@ -4,25 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ChatRoomMemberBean implements Serializable {
-  private ArrayList<ChatRoomMemberRecordBean> chatRoomRecordArray;
+  private ArrayList<ChatRoomMemberRecordBean> chatRoomMemberRecordArray;
 
   public ChatRoomMemberBean() {
-    chatRoomRecordArray = new ArrayList<ChatRoomMemberRecordBean>();
+    chatRoomMemberRecordArray = new ArrayList<ChatRoomMemberRecordBean>();
   }
 
   public void addRecord(ChatRoomMemberRecordBean obj) {
-    chatRoomRecordArray.add(obj);
+    chatRoomMemberRecordArray.add(obj);
   }
 
   public int getArraySize() {
-    return chatRoomRecordArray.size();
+    return chatRoomMemberRecordArray.size();
   }
 
   public ArrayList<ChatRoomMemberRecordBean> getRecordArray() {
-    return chatRoomRecordArray;
+    return chatRoomMemberRecordArray;
   }
 
-  public void setChatRecordArray(ArrayList<ChatRoomMemberRecordBean> chatRoomRecordArray) {
-    this.chatRoomRecordArray = chatRoomRecordArray;
+  public void setChatRecordArray(ArrayList<ChatRoomMemberRecordBean> chatRoomMemberRecordArray) {
+    this.chatRoomMemberRecordArray = chatRoomMemberRecordArray;
   }
 }
