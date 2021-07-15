@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.bean.ChatBean;
-import dao.dao.ChatDAO;
+import dao.dao.ChatDAO2;
 import dao.exception.DatabaseException;
 import dao.exception.SystemException;
 
@@ -24,24 +24,31 @@ public class TweetServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	  
     try {
-      ChatDAO dao = new ChatDAO();
-      tweetBean = dao.getChatBean();
-      HttpSession session = request.getSession();
-      session.setAttribute("twtBean", tweetBean);
-      getServletContext().getRequestDispatcher("/tweetList.jsp").forward(request, response);
+    	
+	    ChatDAO2 dao = new ChatDAO2();
+	    tweetBean = (ChatBean) dao.getBean();
+	    HttpSession session = request.getSession();
+	    session.setAttribute("twtBean", tweetBean);
+	    getServletContext().getRequestDispatcher("/tweetList.jsp").forward(request, response);
+    
     } catch (SystemException e) {
-      e.printStackTrace();
-      HttpSession session = request.getSession();
-      session.setAttribute("Except", e);
-      getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-      return;
+    
+	    e.printStackTrace();
+	    HttpSession session = request.getSession();
+	    session.setAttribute("Except", e);
+        getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+	    return;
+    
     } catch (DatabaseException e) {
-      e.printStackTrace();
-      HttpSession session = request.getSession();
-      session.setAttribute("Except", e);
-      getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-      return;
+    
+    	e.printStackTrace();
+        HttpSession session = request.getSession();
+        session.setAttribute("Except", e);
+        getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+        return;
+    
     }
 
   }

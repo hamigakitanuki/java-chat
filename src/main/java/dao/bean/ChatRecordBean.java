@@ -62,4 +62,9 @@ public class ChatRecordBean implements Serializable {
   public void setType(int type) {
     this.type = type;
   }
+  
+  public String getValues() {
+	 return String.format("values(%d, %d, '%s', %d)", chatRoomMemberId, chatRoomId, message, type);
+  }
+
 }

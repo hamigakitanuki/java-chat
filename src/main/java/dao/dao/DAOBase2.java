@@ -6,19 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import dao.bean.ChatRecordBean;
 import dao.exception.DatabaseException;
 import dao.exception.SystemException;
 import dao.parameter.DAOParameters;
 import dao.parameter.ExceptionParameters;
 
-
-
-
-
 public class DAOBase2{
   Connection con;
   Statement stmt;
   String tableName;
+  String columns;
   
   protected void open() throws DatabaseException,SystemException{
     try{
@@ -63,6 +61,28 @@ public class DAOBase2{
       this.close(stmt);
     }
     return object;
+  }
+  
+  // レコード追加処理
+  public int create(ChatRecordBean record) throws DatabaseException, SystemException {
+    int ret = 0;
+    this.open();
+
+    try {
+      stmt = con.createStatement();
+
+      // valuesをセット
+      String sql = String.format("INSERT INTO %s(%s) ", this.tableName, this.columns);
+      sql += record.getValues();
+      System.out.println(sql);
+      ret = stmt.executeUpdate(sql);
+
+    } catch (SQLException e) {
+      throw new DatabaseException(ExceptionParameters.DATABASE_CONNECTION_EXCEPTION_MESSAGE, e);
+    } finally {
+      this.close(stmt);
+    }
+    return ret;
   }
   
   // 仮の関数
