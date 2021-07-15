@@ -17,12 +17,14 @@ mix
 // 下記を追加
 mix.browserSync({
   browser: "google chrome",
-  proxy: {
-    target: "http://localhost:8080/WebSocket"
+  server: {
+    baseDir: '.',
+    index: 'index.html'
   },
   watchOptions: {
     usePolling: true,
     interval: 500
   },
+  proxy: false,
   files: '**/*'
 });
