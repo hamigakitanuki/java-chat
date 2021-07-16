@@ -27,5 +27,4 @@ public class ChatRoomDAO extends DAOBase {
         }
         return bean;
 	}
-	
 }

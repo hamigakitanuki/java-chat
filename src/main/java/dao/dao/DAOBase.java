@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import dao.bean.ChatRecordBean;
+import dao.bean.BaseRecordBean;
 import dao.exception.DatabaseException;
 import dao.exception.SystemException;
 import dao.parameter.DAOParameters;
@@ -64,7 +64,7 @@ public class DAOBase{
   }
   
   // レコード追加処理
-  public int create(ChatRecordBean record) throws DatabaseException, SystemException {
+  public int create(BaseRecordBean record) throws DatabaseException, SystemException {
     int ret = 0;
     this.open();
 

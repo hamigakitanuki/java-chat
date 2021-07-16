@@ -45,21 +45,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form class="fx_column_block" action="">
+                <form id="create_chat_room_form" class="fx_column_block" action="ChatRoom" method="post">
                   <label class="fx_column_block fs_m">
                     チャットルーム名(必須)
-                    <input class="el_form_input" type="text" placeholder="">
+                    <input class="el_form_input" type="text" name="chat_room_name" placeholder="">
                   </label>
                   <label class="fx_column_block mt_30 fs_m">
                     パスワード
-                    <input class="el_form_input" type="text" placeholder="">
+                    <input class="el_form_input" type="text" name="password" placeholder="">
                   </label>
 
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                <button type="button" class="btn btn-primary">作成</button>
+                <button type="button" class="btn btn-primary" onclick="document.querySelector('#create_chat_room_form').submit()">作成</button>
               </div>
             </div>
           </div>

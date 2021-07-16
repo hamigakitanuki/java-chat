@@ -1,21 +1,24 @@
 package chat;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
+
+import dao.bean.BaseRecordBean;
+import dao.bean.ChatRoomRecordBean;
+import dao.dao.ChatRoomDAO;
+import dao.exception.DatabaseException;
+import dao.exception.SystemException;
 
 /**
  * Servlet implementation class Chat
  */
 @WebServlet("/ChatRoom")
-@MultipartConfig(maxFileSize=1048576)
 public class ChatRoom extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,55 +34,40 @@ public class ChatRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// Query Stringは「param」キーでデータを取得する。
-
-
-    String param = request.getParameter("param");
-
-
-    // データが無い場合、「hello world」に基本データに設定する。
-
-
-    if (param == null || param.isEmpty()) {
-
-
-      param = "all";
-
-
-    }
-
-
-    // WebSessionに「TestSession」キーでデータを格納する。
-
-    System.out.println(param);
-    request.getSession().setAttribute("chatRoomId", param);
-
-
-    // Web応答は「Session In OK」にする。
-
-
-    response.getWriter().append("Session In OK");
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String chatRoomName = request.getParameter("chat_room_name");
+		String password = request.getParameter("password");
+	    ChatRoomRecordBean chatRoomRecod= new ChatRoomRecordBean();
+	    chatRoomRecod.setChatRoomName(chatRoomName);
+	    chatRoomRecod.setPassword(password);
 
-		Part fPart = request.getPart("file");
-	    String fName = (new StringBuilder(2)
-	      .append("").append(System.currentTimeMillis())
-	      .append("_").append(fPart.getSubmittedFileName()
-	    ).toString());
-	    String path = getServletContext().getRealPath("/upload");
-	    System.out.println(path+File.separator+fName);
-	    fPart.write(path+File.separator+fName);
+	    try {
+	      ChatRoomDAO dao = new ChatRoomDAO();
+	      int ret = dao.create((BaseRecordBean)chatRoomRecod);
+	      System.out.println(ret);
+	      // HttpSession session = request.getSession();
+	      // session.setAttribute("RecordCount",ret);
+	      // session.setAttribute("StudentRecord", twtrecord);
+	      // getServletContext().getRequestDispatcher("/tweetList.jsp").forward(request,
+	      // response);
 
-		//	ブロードキャスト処理
-		String chatRoomId = (String)request.getSession().getAttribute("chatRoomId");
-		BroadSocket.bloadCastSend(chatRoomId, "/upload/"+fName);
-	    response.getWriter().append("Send Ok");
-
+	    } catch (SystemException e) {
+	      e.printStackTrace();
+	      HttpSession session = request.getSession();
+	      session.setAttribute("Except", e);
+	      getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+	      return;
+	    } catch (DatabaseException e) {
+	      e.printStackTrace();
+	      HttpSession session = request.getSession();
+	      session.setAttribute("Except", e);
+	      getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+	      return;
+	    }
 	}
 }
