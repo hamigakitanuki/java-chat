@@ -3,8 +3,11 @@ package dao.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dao.bean.BaseRecordBean;
 import dao.bean.ChatBean;
 import dao.bean.ChatRecordBean;
+import dao.exception.DatabaseException;
+import dao.exception.SystemException;
 
 public class ChatDAO extends DAOBase {
 
