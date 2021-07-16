@@ -51,10 +51,8 @@ public class DAOBase{
       String sql = String.format("select * " + "from %s", this.tableName);
 
       ResultSet rs = stmt.executeQuery(sql);
-
-      while (rs.next()) {
-    	  object = resultSetToBean(rs);
-      }
+	  object = resultSetToBean(rs);
+      
     } catch (SQLException e) {
       throw new DatabaseException(ExceptionParameters.DATABASE_CONNECTION_EXCEPTION_MESSAGE, e);
     } finally {

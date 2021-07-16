@@ -7,13 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.bean.BaseRecordBean;
 import dao.bean.ChatRoomRecordBean;
 import dao.dao.ChatRoomDAO;
-import dao.exception.DatabaseException;
-import dao.exception.SystemException;
 
 /**
  * Servlet implementation class Chat
@@ -46,28 +42,9 @@ public class ChatRoom extends HttpServlet {
 	    chatRoomRecod.setChatRoomName(chatRoomName);
 	    chatRoomRecod.setPassword(password);
 
-	    try {
-	      ChatRoomDAO dao = new ChatRoomDAO();
-	      int ret = dao.create((BaseRecordBean)chatRoomRecod);
-	      System.out.println(ret);
-	      // HttpSession session = request.getSession();
-	      // session.setAttribute("RecordCount",ret);
-	      // session.setAttribute("StudentRecord", twtrecord);
-	      // getServletContext().getRequestDispatcher("/tweetList.jsp").forward(request,
-	      // response);
+	    ChatRoomDAO dao = new ChatRoomDAO();
+	    dao.create(chatRoomRecod);
 
-	    } catch (SystemException e) {
-	      e.printStackTrace();
-	      HttpSession session = request.getSession();
-	      session.setAttribute("Except", e);
-	      getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-	      return;
-	    } catch (DatabaseException e) {
-	      e.printStackTrace();
-	      HttpSession session = request.getSession();
-	      session.setAttribute("Except", e);
-	      getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-	      return;
-	    }
+
 	}
 }

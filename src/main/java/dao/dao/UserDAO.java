@@ -30,4 +30,30 @@ public class UserDAO extends DAOBase {
 		return bean;
 	}
 
+	@Override
+	public UserBean getBean() {
+		UserBean userBean = new UserBean();
+		try {
+			userBean = (UserBean) super.getBean();
+		} catch (DatabaseException | SystemException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return userBean;
+	}
+
+	public int create(UserRecordBean record) {
+		int ret = 0;
+
+		try {
+			ret = super.create((BaseRecordBean) record);
+		} catch (DatabaseException | SystemException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return ret;
+	}
+
 }

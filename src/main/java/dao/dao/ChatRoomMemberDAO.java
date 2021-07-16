@@ -28,4 +28,30 @@ public class ChatRoomMemberDAO extends DAOBase {
 		return bean;
 	}
 
+	@Override
+	public ChatRoomMemberBean getBean() {
+		ChatRoomMemberBean chatRoomMemberBean = new ChatRoomMemberBean();
+		try {
+			chatRoomMemberBean = (ChatRoomMemberBean) super.getBean();
+		} catch (DatabaseException | SystemException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return chatRoomMemberBean;
+	}
+
+	public int create(ChatRoomMemberRecordBean record) {
+		int ret = 0;
+
+		try {
+			ret = super.create((BaseRecordBean) record);
+		} catch (DatabaseException | SystemException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return ret;
+	}
+
 }

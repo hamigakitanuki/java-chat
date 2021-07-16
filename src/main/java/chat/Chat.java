@@ -14,8 +14,6 @@ import javax.servlet.http.Part;
 
 import dao.bean.ChatRoomBean;
 import dao.dao.ChatRoomDAO;
-import dao.exception.DatabaseException;
-import dao.exception.SystemException;
 
 /**
  * Servlet implementation class Chat
@@ -54,31 +52,13 @@ public class Chat extends HttpServlet {
 //
 //    response.getWriter().append("Session In OK");
 		
-		try {
-			ChatRoomBean chatRoomBean;
-		    ChatRoomDAO dao = new ChatRoomDAO();
-		    chatRoomBean = (ChatRoomBean) dao.getBean();
-		    HttpSession session = request.getSession();
-		    session.setAttribute("chatRoomBean", chatRoomBean);
-		    getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
+		ChatRoomBean chatRoomBean;
+	    ChatRoomDAO dao = new ChatRoomDAO();
+	    chatRoomBean = dao.getBean();
+	    HttpSession session = request.getSession();
+	    session.setAttribute("chatRoomBean", chatRoomBean);
+	    getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
 		    
-	    } catch (SystemException e) {
-	    
-		    e.printStackTrace();
-		    HttpSession session = request.getSession();
-		    session.setAttribute("Except", e);
-	        getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-		    return;
-	    
-	    } catch (DatabaseException e) {
-	    
-	    	e.printStackTrace();
-	        HttpSession session = request.getSession();
-	        session.setAttribute("Except", e);
-	        getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-	        return;
-	    
-	    }
 
 	}
 
