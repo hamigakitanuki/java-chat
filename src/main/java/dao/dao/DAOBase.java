@@ -63,7 +63,7 @@ public class DAOBase{
   
   // レコード追加処理
   public int create(BaseRecordBean record) throws DatabaseException, SystemException {
-    int ret = 0;
+    int id = 0;
     this.open();
 
     try {
@@ -73,14 +73,17 @@ public class DAOBase{
       String sql = String.format("INSERT INTO %s(%s) ", this.tableName, this.columns);
       sql += record.getValues();
       System.out.println(sql);
-      ret = stmt.executeUpdate(sql);
+      stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+      ResultSet ret = stmt.getGeneratedKeys();
+      ret.next();
+      id = ret.getInt(1);
 
     } catch (SQLException e) {
       throw new DatabaseException(ExceptionParameters.DATABASE_CONNECTION_EXCEPTION_MESSAGE, e);
     } finally {
       this.close(stmt);
     }
-    return ret;
+    return id;
   }
   
   // 仮の関数
