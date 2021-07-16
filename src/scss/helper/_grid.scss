@@ -1,0 +1,32 @@
+@include mq(md){
+    .grid {
+        display: grid !important;
+        gap: 20px;
+    }
+
+    .grid-2col {
+        @extend .grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-3col {
+        @extend .grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .grid-4col {
+        @extend .grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .grid-5col {
+        @extend .grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+.dis_grid{
+    display: grid;
+}
+.gap-30{
+    gap: 30px;
+}

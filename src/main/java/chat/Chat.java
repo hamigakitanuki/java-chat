@@ -60,7 +60,7 @@ public class Chat extends HttpServlet {
 
 
     response.getWriter().append("Session In OK");
-
+    getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
 	}
 
 	/**

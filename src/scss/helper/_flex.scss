@@ -1,0 +1,170 @@
+.fx_inline {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+}
+
+.fx_al_start {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.fx_al_end {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+.fx_al_center {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.fx_al_center_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.fx_al_between {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-align-content: space-between;
+  align-content: space-between;
+}
+
+.fx_ju_center {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.fx_ju_center_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.fx_ju_between {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.fx_ju_between_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.fx_ju_between_block_md{
+  @include mq(md){
+    display: flex;
+    display: -ms-flexbox;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+.fx_ju_around {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+}
+
+.fx_ju_around_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+}
+
+.fx_ju_start {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.fx_ju_start_block {
+    display: flex;
+    display: -ms-inline-flexbox;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}
+
+.fx_ju_end {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.fx_nowrap {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.fx_nowrap_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.fx_wrap_rev {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+.fx_wrap {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.fx_wrap_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.fx_column {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+
+.fx_column_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+
+.fx_flow_col_block {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+
+.fx {
+  display: flex;
+  display: -ms-flexbox;
+}

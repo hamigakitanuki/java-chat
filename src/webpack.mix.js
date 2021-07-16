@@ -4,7 +4,7 @@ mix.setResourceRoot('dist');
 
 // 下記を追加
 mix
-  .sass('scss/app.scss', 'dist/')
+  .sass('scss/app.scss', 'main/webapp/dist/')
   .options({
     processCssUrls: false,
     autoprefixer: {

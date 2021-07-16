@@ -1,0 +1,128 @@
+.chat{
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: calc(100vh - 50px);
+  width: 100%;
+  height: calc(100vh - 50px);
+  aside{
+    display: grid;
+    overflow-y: scroll;
+    border-right: 1px solid $col_grayDark;
+    .chat_profile{
+      .profile_icon{
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+      }
+    }
+
+    .chat_room_list{
+      li{
+        height: 5rem;
+        padding: 0px 15px;
+        transition: 0.3s;
+        cursor: pointer;
+        .icon{
+          border-radius: 50%;
+          height: 3rem;
+          width: 3rem;
+        }
+        p{
+          margin-left: 15px;
+        }
+        &:hover{
+          background-color: #aaaaaa50;
+        }
+      }
+    }
+  }
+  .chat_main{
+    position: relative;
+    height: 100%;
+    padding: 3rem 0px 65px;
+    .chat_announce{
+      position: absolute;
+      top: 0px;
+      padding: 0px 15px;
+      width: 100%;
+      height: 3rem;
+      background-color: $col_gray;
+    }
+    .chat_message_ilst{
+      display: grid;
+      height: 100%;
+      overflow-y: scroll;
+      ul{
+        padding: 30px 60px;
+        li{
+          display: flex;
+          align-items: flex-start;
+          &:nth-child(n + 2){
+            margin-top: 30px;
+          }
+          .icon{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+          p{
+            padding: 20px;
+            max-width: calc(100% - 50px - 15px);
+          }
+          &.right_messege{
+            justify-content: flex-end;
+            p{
+              background-color: $col_theme;
+              color: white;
+              border-radius: 10px 0px 10px 10px;
+              box-shadow: 5px 10px 15px -5px #00000060;
+              margin-right: 15px
+            }
+          }
+          &.left_messege{
+            p{
+              border-radius: 0px 10px 10px 10px;
+              box-shadow: -5px 10px 15px -5px #00000060;
+              margin-left: 15px;
+            }
+          }
+        }
+      }
+    }
+
+    .form_wrap{
+      position: absolute;
+      bottom: 0px;
+      padding: 0.5em 30px 0.5em 30px;
+      width: 100%;
+      height: max-content;
+      border-top: 1px solid $col_gray;
+      background-color: $col_gray;
+      display: grid;
+      grid-template-columns: 50px 1fr 50px;
+      grid-template-rows: 3rem;
+      align-items: center;
+      textarea{
+        border-radius: 10px;
+        border: none;
+        resize: none;
+        overflow: hidden;
+      }
+      .send_button{
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        cursor: pointer;
+        svg{
+          height: 35px;
+          width: 35px;
+        }
+        input[type=file]{
+          display: none;
+        }
+      }
+    }
+
+  }
+}

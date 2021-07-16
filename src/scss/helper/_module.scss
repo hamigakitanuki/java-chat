@@ -1,0 +1,22 @@
+.el_form_input{
+  border-width: 0 0 1px 0px;
+  border-color: $col_grayDark;
+}
+.el_btn_theme{
+  border-radius: 999px;
+  padding: 10px 20px;
+  background-color: $col_theme;
+  color: white;
+  min-width: 10rem;
+  transition: 0.3s;
+  &:hover{
+    opacity: 0.6;
+  }
+  &::placeholder{
+    color: $col_gray;
+  }
+}
+.icon_svg{
+  width: 1.5rem;
+  height: 1.5rem;
+}

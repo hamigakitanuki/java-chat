@@ -1,0 +1,105 @@
+.fs_xs {
+  font-size: $size_xs;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+}
+
+.fs_s {
+  font-size: $size_s;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+}
+
+.fs_m {
+  font-size: $size_m;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+}
+
+.fs_mm {
+  font-size: $size_mm;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+
+.fs_l {
+  font-size: $size_l;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+
+.fs_xl {
+  font-size: $size_xl;
+  line-height: 2.3;
+  letter-spacing: 0.1em;
+}
+
+.fs_cap {
+  font-size: $size_cap;
+  line-height: 2.5;
+  letter-spacing: 0.1em;
+}
+
+.fc_theme {
+  color: $col_theme;
+}
+
+.fc_themeLight {
+  color: $col_themeLight;
+}
+
+.fc_gray {
+  color: $col_gray;
+}
+
+.fc_grayLight {
+  color: $col_grayLight;
+}
+
+.fc_goldLight {
+  color: $col_goldLight;
+}
+
+.fc_gold {
+  color: $col_gold;
+}
+
+.fc_white {
+  color: $col_white;
+}
+
+.ff_chibimaru {
+  font-family: $family_chibimaru;
+}
+.ff_adorn {
+  font-family: $family_adorn;
+}
+.ff_colonna {
+  font-family: $family_colonna;
+}
+
+.ws_pre_line {
+  white-space: pre-line;
+}
+
+.fw_l {
+  font-weight: 200;
+}
+.fw_r {
+  font-weight: 400;
+}
+.fw_b {
+  font-weight: 700;
+}
+.txt_center {
+  text-align: center;
+}
+.txt_right{
+  text-align: right;;
+}
+.wb_keep_all {
+  word-break: keep-all;
+}
+.wb_break_all {
+  word-break: break-all;
+}

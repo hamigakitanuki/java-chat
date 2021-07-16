@@ -1,0 +1,69 @@
+/*
+* variable.scss
+*/
+
+/* -- font-size -- */
+$fs_xs: 11px;
+$fs_s: 13px;
+$fs_m: 15px;
+$fs_mm: 17px;
+$fs_l: 20px;
+$fs_xl: 24px;
+$fs_cap: 35px;
+
+/* -- font-face -- */
+@font-face {
+  font-family: 'Colonna MT';
+  src: url('/colonna.woff') format('woff');
+}
+
+/* -- font-family -- */
+$family_chibimaru: tbchibirgothicplusk-pro, 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo,
+  'ＭＳ Ｐゴシック', sans-serif;
+$family_adorn: adorn-condensed-sans, tbchibirgothicplusk-pro, Roboto, Arial, Helvetica, sans-serif;
+$family_colonna: Colonna MT, 'Regular', adorn-condensed-sans, tbchibirgothicplusk-pro, Roboto, Arial, Helvetica,
+  sans-serif;
+$family_shuei_gothic: dnp-shuei-gothic-kin-std, 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo,
+  'ＭＳ Ｐゴシック', sans-serif;
+$family_ten_mincho: ten-mincho-text;
+
+// $family_sinhala:
+
+/* -- size -- */
+$size_xs: 11px;
+$size_s: 13px;
+$size_m: 15px;
+$size_mm: 16px;
+$size_l: 19px;
+$size_xl: 25px;
+$size_cap: 35px;
+
+/* -- color -- */
+$col_theme: #7fbfff;
+$col_themeLight: #ff889c;
+$col_sub: #289177;
+$col_white: #ffffff;
+$col_grayDark: #aaaaaa;
+$col_grayLight: #f8f8f8;
+$col_gray: #e9e9e9;
+$col_goldLight: #f0eadf;
+$col_gold: #ffd45f;
+$col_black: #777;
+$col_shadow: #0000001a;
+
+/* -- size --*/
+$page_size: 1200px;
+$page_padding: 30px;
+
+/* -- media_query -- */
+$breakpoints: (
+  'sm': 'screen and (min-width: 400px)',
+  'md': 'screen and (min-width: 768px)',
+  'lg': 'screen and (min-width: 1000px)',
+  'xl': 'screen and (min-width: 1200px)',
+) !default;
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}

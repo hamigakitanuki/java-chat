@@ -1,0 +1,150 @@
+body {
+  font-family: $family_shuei_gothic !important;
+  font-weight: 400;
+  font-style: normal;
+  width: 100%;
+  color: $col_black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  display: block;
+  font-size: inherit;
+  margin: 0;
+  font-weight: 400;
+  text-align: center;
+  @include mq(md) {
+    text-align: left;
+  }
+}
+
+ul {
+  list-style-type: none;
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+dl {
+  dt {
+    font-weight: 400;
+  }
+  dd {
+    text-align: justify;
+    margin-bottom: 0;
+  }
+}
+
+img {
+  font-family: 'object-fit: cover; object-position: center;';
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+input,
+textarea {
+  -webkit-appearance: none;
+}
+
+input,
+button,
+select,
+textarea {
+  color: inherit;
+  padding: 6px 12px;
+  font-family: $family_shuei_gothic;
+  &:focus {
+    outline: 0;
+  }
+}
+input[type='date'] {
+  min-height: 34px;
+}
+input[type='text'],
+input[type='emaail'],
+input[type='textarea'],
+input[type='password'] {
+  font-size: 15px;
+}
+label {
+  margin: 0;
+}
+
+button {
+  display: inline-block;
+  color: #777;
+  border: 1px solid $col_gray;
+  border-radius: 5px;
+  background-color: $col_white;
+  appearance: none;
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.container {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: unset;
+  margin: 0;
+  padding: 0;
+  .wrap {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+// main {
+//   background-color: $col_grayLight;
+//   @include mq(md) {
+//     background-color: transparent;
+//   }
+// }
+
+@include mq(md) {
+  .twoColumn {
+    width: $page_size;
+    margin: 100px auto 0;
+    padding: 0 $page_padding;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+
+    &_main {
+      width: 740px;
+      height: auto;
+    }
+    &_side {
+      width: 340px;
+      height: auto;
+      .el_siteBtn_PR {
+        display: none;
+      }
+      .el_siteBtn {
+        display: none;
+      }
+    }
+  }
+}
