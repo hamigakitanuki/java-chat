@@ -1,8 +1,6 @@
 package dao.bean;
 
-import java.io.Serializable;
-
-public class ChatRoomRecordBean implements Serializable {
+public class ChatRoomRecordBean extends BaseRecordBean {
   private String chat_room_name;
   private String password;
 

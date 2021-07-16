@@ -1,8 +1,6 @@
 package dao.bean;
 
-import java.io.Serializable;
-
-public class UserRecordBean implements Serializable {
+public class UserRecordBean extends BaseRecordBean {
   private String email;
   private String password;
   private String name;
