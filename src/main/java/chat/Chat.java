@@ -9,7 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import dao.bean.ChatRoomBean;
+import dao.dao.ChatRoomDAO;
+import dao.exception.DatabaseException;
+import dao.exception.SystemException;
 
 /**
  * Servlet implementation class Chat
@@ -33,34 +39,47 @@ public class Chat extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	// Query Stringは「param」キーでデータを取得する。
+//
+//    String param = request.getParameter("param");
+//
+//    if (param == null || param.isEmpty()) {
+//      param = "all";
+//    }
+//    // WebSessionに「TestSession」キーでデータを格納する。
+//
+//    System.out.println(param);
+//    request.getSession().setAttribute("chatRoomId", param);
+//
+//    // Web応答は「Session In OK」にする。
+//
+//    response.getWriter().append("Session In OK");
+		
+		try {
+			ChatRoomBean chatRoomBean;
+		    ChatRoomDAO dao = new ChatRoomDAO();
+		    chatRoomBean = (ChatRoomBean) dao.getBean();
+		    HttpSession session = request.getSession();
+		    session.setAttribute("chatRoomBean", chatRoomBean);
+		    getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
+		    
+	    } catch (SystemException e) {
+	    
+		    e.printStackTrace();
+		    HttpSession session = request.getSession();
+		    session.setAttribute("Except", e);
+	        getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+		    return;
+	    
+	    } catch (DatabaseException e) {
+	    
+	    	e.printStackTrace();
+	        HttpSession session = request.getSession();
+	        session.setAttribute("Except", e);
+	        getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+	        return;
+	    
+	    }
 
-
-    String param = request.getParameter("param");
-
-
-    // データが無い場合、「hello world」に基本データに設定する。
-
-
-    if (param == null || param.isEmpty()) {
-
-
-      param = "all";
-
-
-    }
-
-
-    // WebSessionに「TestSession」キーでデータを格納する。
-
-    System.out.println(param);
-    request.getSession().setAttribute("chatRoomId", param);
-
-
-    // Web応答は「Session In OK」にする。
-
-
-    response.getWriter().append("Session In OK");
-    getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
 	}
 
 	/**
@@ -68,6 +87,8 @@ public class Chat extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		doGet(request, response);
+		
 		Part fPart = request.getPart("file");
 	    String fName = (new StringBuilder(2)
 	      .append("").append(System.currentTimeMillis())

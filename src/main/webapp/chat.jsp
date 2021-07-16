@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import = "java.util.*" %>
+<%@ page import = "chat.*" %>
+<%@ page import = "dao.bean.*" %>
   <!DOCTYPE html>
   <html lang="ja">
 
@@ -61,57 +64,20 @@
             </div>
           </div>
         </div>
-
+		
+		<jsp:useBean id="chatRoomBean" class="dao.bean.ChatRoomBean" scope = "session"/>
         <ul class="chat_room_list fx_column_block mt_30">
+	      <%
+				ArrayList<ChatRoomRecordBean> chatRoomRecordArray = chatRoomBean.getRecordArray();
+				for(ChatRoomRecordBean record : chatRoomRecordArray){
+		  %>
           <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_2">か</span>
-            <p>わい</p>
+            <span class="icon fx_al_center fx_ju_center icon_col_2"><%= record.getChatRoomName().substring(0, 1) %></span>
+            <p><%= record.getChatRoomName() %></p>
           </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_9">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_3">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_4">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_5">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_6">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_7">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_2">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_2">わ</span>
-            <p>わい</p>
-          </li>
-
-          <li class="fx_al_center_block">
-            <span class="icon fx_al_center fx_ju_center icon_col_2">わ</span>
-            <p>わい</p>
-          </li>
+			<%
+				}
+			%>
         </ul>
       </aside>
 
