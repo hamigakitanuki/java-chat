@@ -80,9 +80,10 @@ public class ChatMessage extends HttpServlet {
 	    	messages.add(String.format("{\"user_name\":\"%s\",\"message\": \"%s\", \"chat_room_member_id\": %d}", record.getName(), record.getMessage(), record.getChatRoomMemberId()));
 	    }
 	    
-	    PrintWriter out = response.getWriter();
+	    
         response.setContentType("application/json");
-//        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
         
         String jsonArray = String.format("{\"messages\": [%s], \"chat_room_member_id\":%d}", String.join(",", messages), chatRoomMemberId);
         out.print(jsonArray);
