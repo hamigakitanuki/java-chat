@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.bean.BaseRecordBean;
 import dao.exception.DatabaseException;
@@ -17,6 +19,7 @@ public class DAOBase{
   Statement stmt;
   String tableName;
   String columns;
+  List<String> wheres = new ArrayList<String>();
   
   protected void open() throws DatabaseException,SystemException{
     try{
@@ -48,8 +51,8 @@ public class DAOBase{
 
     try {
       stmt = con.createStatement();
-      String sql = String.format("select * " + "from %s", this.tableName);
-
+      String sql = String.format("select * " + "from %s", this.tableName) + this.getWhere();
+      System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
 	  object = resultSetToBean(rs);
       
@@ -84,6 +87,19 @@ public class DAOBase{
       this.close(stmt);
     }
     return id;
+  }
+  
+  public void setWhere(String where) {
+	  this.wheres.add(where);
+  }
+  
+  public String getWhere() {
+	  String ret = "";
+	  if (this.wheres.size() > 0 ) {
+		  ret += " where ";
+		  ret += String.join(" and ", this.wheres);
+	  }
+	  return ret;
   }
   
   // 仮の関数

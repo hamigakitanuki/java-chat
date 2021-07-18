@@ -13,7 +13,7 @@ public class ChatRoomMemberDAO extends DAOBase {
 
 	public ChatRoomMemberDAO() {
 		tableName = "chat_room_member";
-		columns = "user_id, chat_room_id";
+		columns = "user_id, chat_room_id, created_at";
 	}
 
 	@Override

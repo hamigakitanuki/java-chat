@@ -13,7 +13,7 @@ public class ChatRoomDAO extends DAOBase {
 
 	public ChatRoomDAO() {
 		tableName = "chat_room";
-		columns = "chat_room_name, password";
+		columns = "chat_room_name, password, created_at";
 	}
 
 	@Override
@@ -24,7 +24,6 @@ public class ChatRoomDAO extends DAOBase {
 		while (rs.next()) {
 			// 値セット
 			ChatRoomRecordBean record = new ChatRoomRecordBean();
-			System.out.println(rs.getString("chat_room_name"));
 			record.setChatRoomName(rs.getString("chat_room_name"));
 			record.setPassword(rs.getString("password"));
 

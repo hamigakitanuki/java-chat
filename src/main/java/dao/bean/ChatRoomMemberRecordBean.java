@@ -1,5 +1,8 @@
 package dao.bean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ChatRoomMemberRecordBean extends BaseRecordBean {
   private int user_id;
   private int chat_room_id;
@@ -9,7 +12,9 @@ public class ChatRoomMemberRecordBean extends BaseRecordBean {
   }
 
   public String getValues() {
-    return String.format("values(%d, $d)", user_id, chat_room_id);
+	Date d = new Date();
+    SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    return String.format("values(%d, %d, '%s')", user_id, chat_room_id, df.format(d));
   }
 
   public int getUserId() {
