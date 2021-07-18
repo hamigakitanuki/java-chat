@@ -45,7 +45,7 @@ public class ChatRoom extends HttpServlet {
 		// パラメータ取得
 		String chatRoomName              = request.getParameter("chat_room_name");
 		String password                  = request.getParameter("password");
-		
+		int userId                       = (int)request.getSession().getAttribute("userId");
 		System.out.println(chatRoomName);
 		// レコード作成
 		ChatRoomRecordBean chatRoomRecod = new ChatRoomRecordBean();
@@ -59,8 +59,7 @@ public class ChatRoom extends HttpServlet {
 		// レコード作成
 		ChatRoomMemberRecordBean chatRoomMemberRecod = new ChatRoomMemberRecordBean();
 		chatRoomMemberRecod.setChatRoomId(chatRoomId);
-		// TODO ユーザーの取得を入れる
-		chatRoomMemberRecod.setUserId(1);
+		chatRoomMemberRecod.setUserId(userId);
 		
 		// レコード保存
 		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
