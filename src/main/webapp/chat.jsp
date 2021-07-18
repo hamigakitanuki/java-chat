@@ -26,7 +26,9 @@
                 <span class="profile_icon fx_al_center fx_ju_center icon_col_1">
                   <%= ((String)request.getAttribute("userName")).substring(0, 1) %>
                 </span>
-                <p class="mt_15 fs_m"><%= request.getAttribute("userName") %></p>
+                <p class="mt_15 fs_m">
+                  <%= request.getAttribute("userName") %>
+                </p>
 
                 <div class="fx_ju_center mt_15">
                   <button class="el_btn_theme fx_al_center" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -97,15 +99,7 @@
               <!-- メッセージ -->
               <div class="chat_message_ilst">
                 <ul id="message_list" class="fx_column_block">
-                  <li class="right_messege">
-                    <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
-                    <span class="icon fx_al_center fx_ju_center icon_col_1">ワ</span>
-                  </li>
-                  <li class="left_messege">
-                    <span class="icon fx_al_center fx_ju_center icon_col_2">わ</span>
-                    <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
-                  </li>
-
+                  <li>チャットルームが選択されていません。</li>
                 </ul>
               </div>
 
