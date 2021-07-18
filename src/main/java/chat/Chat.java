@@ -54,6 +54,7 @@ public class Chat extends HttpServlet {
 		
 		ChatRoomBean chatRoomBean;
 	    ChatRoomDAO dao = new ChatRoomDAO();
+	    
 	    chatRoomBean = dao.getBean();
 	    HttpSession session = request.getSession();
 	    session.setAttribute("chatRoomBean", chatRoomBean);
