@@ -9,7 +9,8 @@
           <meta charset="UTF-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Document</title>
+          <link rel="shortcut icon" href="dist/chat.png">
+          <title>スマートチャット</title>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
           <link rel="stylesheet" href="dist/app.css">
         </head>
@@ -72,7 +73,7 @@
                   <% ArrayList<ChatRoomRecordBean> chatRoomRecordArray = chatRoomBean.getRecordArray();
                     for(ChatRoomRecordBean record : chatRoomRecordArray){
                     %>
-                    <li class="fx_al_center_block" onclick="getMessages(<%= record.getId() %>)">
+                    <li class="fx_al_center_block" onclick="openChatRoom(<%= record.getId() %>)">
 
                       <span class="icon fx_al_center fx_ju_center icon_col_2">
                         <%= record.getChatRoomName().substring(0, 1) %>
@@ -128,118 +129,7 @@
 
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
           <script src="dist/jquery-min.js"></script>
-          <script>
-
-            /*------------------------- データ -------------------------*/
-            var chatRoomId;
-            var chatRoomMemberId;
-
-            /*------------------------- メッセージ送信 -------------------------*/
-            function sendMessage() {
-              let messageForm = document.querySelector('#message_form');
-              let message = messageForm.value
-              messageForm.value = "";
-
-              setMessage({
-                message: message,
-                chat_room_member_id: chatRoomMemberId
-              });
-              $.ajax({
-                url: 'ChatMessage',
-                type: 'POST',
-                // フォーム要素の内容をハッシュ形式に変換
-                data: {
-                  'message': message,
-                  'chat_room_id': chatRoomId,
-                  'chat_room_member_id': chatRoomMemberId,
-                },
-                timeout: 5000,
-              })
-                .done(function (data) {
-                  // 通信成功時の処理を記述
-                  console.log(data);
-
-                })
-                .fail(function () {
-                  // 通信失敗時の処理を記述
-                  console.log("get messages error");
-                  return false;
-                });
-            }
-            /*------------------------- メッセージ一覧取得 -------------------------*/
-            function getMessages(chat_room_id) {
-              /* メッセージ一覧を削除 */
-              resetList();
-              chatRoomId = chat_room_id;
-              $.ajax({
-                url: 'ChatMessage',
-                type: 'GET',
-                contentType: 'application/json',
-                // フォーム要素の内容をハッシュ形式に変換
-                data: {
-                  'chat_room_id': chat_room_id
-                },
-                timeout: 5000,
-              })
-                .done(function (data) {
-                  // 通信成功時の処理を記述
-                  console.log(data);
-                  messages = data.messages;
-                  console.log(data.messages, messages);
-                  chatRoomMemberId = data.chat_room_member_id;
-                  setMessages(messages);
-                })
-                .fail(function () {
-                  // 通信失敗時の処理を記述
-                  console.log("get messages error");
-                  return false;
-                });
-
-            }
-
-            /*------------------------- メッセージ一覧削除 -------------------------*/
-            function resetList() {
-              let messageList = document.querySelector('#message_list');
-              messageList.innerHTML = "";
-            }
-
-            /*------------------------- メッセージ一覧表示 -------------------------*/
-            function setMessages(messages) {
-              messages.forEach(message => {
-                setMessage(message)
-              });
-            }
-
-            function setMessage(message) {
-              let messageList = document.querySelector('#message_list')
-              /*------------------------- メッセージの項目 -------------------------*/
-              let messageWrap = document.createElement('li')
-
-              /*------------------------- メッセージ内容 -------------------------*/
-              let messageContent = document.createElement('p')
-              messageContent.innerText = message.message
-
-              /*------------------------- メッセージのアイコン -------------------------*/
-              let messageIcon = document.createElement('span')
-              messageIcon.innerText = message.message.substr(0, 1)
-              messageIcon.classList.add('icon');
-              messageIcon.classList.add('fx_al_center');
-              messageIcon.classList.add('fx_ju_center');
-              messageIcon.classList.add('icon_col_1');
-
-              /*------------------------- 自分のメッセージは右 それ以外は左 -------------------------*/
-              if (message.chat_room_member_id == chatRoomMemberId) {
-                messageWrap.classList.add('right_messege');
-                messageWrap.appendChild(messageContent);
-                messageWrap.appendChild(messageIcon);
-              } else {
-                messageWrap.classList.add('left_messege');
-                messageWrap.appendChild(messageIcon);
-                messageWrap.appendChild(messageContent);
-              }
-              messageList.appendChild(messageWrap)
-            }
-          </script>
+          <script src="dist/chat.js"></script>
         </body>
 
 
