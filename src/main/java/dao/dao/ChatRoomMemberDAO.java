@@ -20,9 +20,10 @@ public class ChatRoomMemberDAO extends DAOBase {
 	public Object resultSetToBean(ResultSet rs) throws SQLException {
 
 		ChatRoomMemberBean bean = new ChatRoomMemberBean();
-		ChatRoomMemberRecordBean record = new ChatRoomMemberRecordBean();
+		
 		while (rs.next()) {
 			// 値セット
+			ChatRoomMemberRecordBean record = new ChatRoomMemberRecordBean();
 			record.setUserId(rs.getInt("user_id"));
 			record.setChatRoomId(rs.getInt("chat_room_id"));
 

@@ -26,6 +26,7 @@ public class ChatRoomDAO extends DAOBase {
 			ChatRoomRecordBean record = new ChatRoomRecordBean();
 			record.setChatRoomName(rs.getString("chat_room_name"));
 			record.setPassword(rs.getString("password"));
+			record.setId(rs.getInt("id"));
 
 			bean.addRecord(record);
 		}
@@ -47,14 +48,14 @@ public class ChatRoomDAO extends DAOBase {
 
 	public int create(ChatRoomRecordBean record) {
 		int ret = 0;
-		
+
 		try {
 			ret = super.create((BaseRecordBean) record);
 		} catch (DatabaseException | SystemException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		
+
 		return ret;
 	}
 }

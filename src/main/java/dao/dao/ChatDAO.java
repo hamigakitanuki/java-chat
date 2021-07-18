@@ -13,16 +13,17 @@ public class ChatDAO extends DAOBase {
 
 	public ChatDAO() {
 		tableName = "chat";
-		columns = "chat_room_member_id, chat_room_id, message, type";
+		columns = "chat_room_member_id, chat_room_id, message, type, created_at";
 	}
 
 	@Override
 	public Object resultSetToBean(ResultSet rs) throws SQLException {
 
 		ChatBean bean = new ChatBean();
-		ChatRecordBean record = new ChatRecordBean();
+		
 		while (rs.next()) {
 			// 値セット
+			ChatRecordBean record = new ChatRecordBean();
 			record.setMessage(rs.getString("message"));
 			record.setType(rs.getInt("type"));
 

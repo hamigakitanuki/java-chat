@@ -20,9 +20,10 @@ public class UserDAO extends DAOBase {
 	public Object resultSetToBean(ResultSet rs) throws SQLException {
 
 		UserBean bean = new UserBean();
-		UserRecordBean record = new UserRecordBean();
+		
 		while (rs.next()) {
 			// 値セット
+			UserRecordBean record = new UserRecordBean();
 			record.setEmail(rs.getString("email"));
 			record.setName(rs.getString("name"));
 			record.setPassword(rs.getString("password"));
