@@ -2,6 +2,9 @@ package chat;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,7 +16,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.bean.ChatRoomBean;
+import dao.bean.ChatRoomMemberBean;
+import dao.bean.ChatRoomMemberRecordBean;
+import dao.bean.UserRecordBean;
 import dao.dao.ChatRoomDAO;
+import dao.dao.ChatRoomMemberDAO;
+import dao.dao.UserDAO;
 
 /**
  * Servlet implementation class Chat
@@ -52,11 +60,43 @@ public class Chat extends HttpServlet {
 //
 //    response.getWriter().append("Session In OK");
 		
-		ChatRoomBean chatRoomBean;
-	    ChatRoomDAO dao = new ChatRoomDAO();
+		HttpSession session = request.getSession();
+		int userId;
+		
+		/* userIdがない場合は作成し、セッションに格納 */
+		if (session.getAttribute("userId") == null) {
+			// 値をセット
+			UserRecordBean userRecordBeam = new UserRecordBean();
+			userRecordBeam.setName("ゲスト" + new Random().nextInt(100));
+			userRecordBeam.setType(5);
+
+			UserDAO dao = new UserDAO();
+			userId = dao.create(userRecordBeam);
+			session.setAttribute("userId", userId);
+		} else {
+			userId = (int) session.getAttribute("userId");	
+		}
+		
+		/* チャットルームメンバーテーブルから参加済みのチャットルームを取得 */
+		ChatRoomMemberBean chatRoomMemberBean;
+		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
+		chatRoomMemberDao.setWhere(String.format("user_id = %d", userId));
+	    chatRoomMemberBean = chatRoomMemberDao.getBean();
 	    
-	    chatRoomBean = dao.getBean();
-	    HttpSession session = request.getSession();
+	    /* chat_room_idを配列に変換 */
+	    List<String> chatRoomIds = new ArrayList<String>();
+	    for (ChatRoomMemberRecordBean chatRoomMemberRecordBean : chatRoomMemberBean.getRecordArray()) {
+	    	chatRoomIds.add(String.valueOf(chatRoomMemberRecordBean.getChatRoomId()));
+	    }
+	    
+	    ChatRoomBean chatRoomBean = null;
+	    if (chatRoomIds.size() > 0) { 
+	    	/* joinしてwhereInで検索し取得 */
+		    ChatRoomDAO chatRoomDao = new ChatRoomDAO();
+		    chatRoomDao.setWhere(String.format("id in (%s)", String.join(",", chatRoomIds)));
+		    chatRoomBean = chatRoomDao.getBean();
+	    }
+		
 	    session.setAttribute("chatRoomBean", chatRoomBean);
 	    getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
 		    

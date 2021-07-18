@@ -66,6 +66,8 @@
               </div>
 
               <jsp:useBean id="chatRoomBean" class="dao.bean.ChatRoomBean" scope="session" />
+              <!-- チャットルームが存在するときのみ表示 -->
+              <% if (chatRoomBean != null) { %>
               <ul class="chat_room_list fx_column_block mt_30">
                 <% ArrayList<ChatRoomRecordBean> chatRoomRecordArray = chatRoomBean.getRecordArray();
                   for(ChatRoomRecordBean record : chatRoomRecordArray){
@@ -82,6 +84,7 @@
                   </li>
                   <% } %>
               </ul>
+              <% } %>
             </aside>
 
             <div class="chat_main">

@@ -11,7 +11,7 @@ public class UserRecordBean extends BaseRecordBean {
   }
 
   public String getValues() {
-    return String.format("values('%s', '%s', '%s', $d)", email, password, name, type);
+    return String.format("values('%s', '%s', '%s', %d)", email, password, name, type);
   }
 
   public String getEmail() {
