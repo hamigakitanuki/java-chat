@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 import dao.bean.ChatRoomBean;
 import dao.bean.ChatRoomMemberBean;
 import dao.bean.ChatRoomMemberRecordBean;
+import dao.bean.UserBean;
 import dao.bean.UserRecordBean;
 import dao.dao.ChatRoomDAO;
 import dao.dao.ChatRoomMemberDAO;
@@ -78,6 +79,13 @@ public class Chat extends HttpServlet {
 			userId = (int) session.getAttribute("userId");
 		}
 
+		// 自分のユーザー情報を取得
+		UserDAO userDao = new UserDAO();
+		userDao.setWhere(String.format("id = %d", userId));
+		UserBean userBean = userDao.getBean();
+		String userName = userBean.getRecordArray().get(0).getName();
+		System.out.println(userName);
+
 		/* チャットルームメンバーテーブルから参加済みのチャットルームを取得 */
 		ChatRoomMemberBean chatRoomMemberBean;
 		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
@@ -98,7 +106,8 @@ public class Chat extends HttpServlet {
 			chatRoomBean = chatRoomDao.getBean();
 		}
 
-		session.setAttribute("chatRoomBean", chatRoomBean);
+		request.setAttribute("chatRoomBean", chatRoomBean);
+		request.setAttribute("userName", userName);
 		getServletContext().getRequestDispatcher("/chat.jsp").forward(request, response);
 
 	}

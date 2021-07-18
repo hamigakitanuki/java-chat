@@ -24,9 +24,9 @@
             <aside>
               <div class="chat_profile fx_al_center_block fx_column_block mt_30">
                 <span class="profile_icon fx_al_center fx_ju_center icon_col_1">
-                  ワ
+                  <%= ((String)request.getAttribute("userName")).substring(0, 1) %>
                 </span>
-                <p class="mt_15 fs_m">ワイ</p>
+                <p class="mt_15 fs_m"><%= request.getAttribute("userName") %></p>
 
                 <div class="fx_ju_center mt_15">
                   <button class="el_btn_theme fx_al_center" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-              <jsp:useBean id="chatRoomBean" class="dao.bean.ChatRoomBean" scope="session" />
+              <jsp:useBean id="chatRoomBean" class="dao.bean.ChatRoomBean" scope="request" />
               <!-- チャットルームが存在するときのみ表示 -->
               <% if (chatRoomBean !=null) { %>
                 <ul class="chat_room_list fx_column_block mt_30">
