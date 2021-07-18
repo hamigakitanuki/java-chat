@@ -24,8 +24,11 @@ public class ChatDAO extends DAOBase {
 		while (rs.next()) {
 			// 値セット
 			ChatRecordBean record = new ChatRecordBean();
+			record.setChatRoomMemberId(rs.getInt("chat_room_member_id"));
+			record.setChatRoomId(rs.getInt("chat_room_id"));
 			record.setMessage(rs.getString("message"));
 			record.setType(rs.getInt("type"));
+			record.setDate(rs.getString("created_at"));
 
 			bean.addRecord(record);
 		}

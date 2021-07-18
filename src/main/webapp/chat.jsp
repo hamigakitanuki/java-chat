@@ -133,7 +133,14 @@
 
             /*------------------------- メッセージ送信 -------------------------*/
             function sendMessage() {
-              let message = document.querySelector('#message_form').value
+              let messageForm = document.querySelector('#message_form');
+              let message = messageForm.value
+              messageForm.value = "";
+
+              setMessage({
+                message: message,
+                chat_room_member_id: chatRoomMemberId
+              });
               $.ajax({
                 url: 'ChatMessage',
                 type: 'POST',
@@ -195,28 +202,39 @@
 
             /*------------------------- メッセージ一覧表示 -------------------------*/
             function setMessages(messages) {
-              let messageList = document.querySelector('#message_list')
-              console.log(messages);
               messages.forEach(message => {
-                /*------------------------- メッセージの項目 -------------------------*/
-                let messageWrap = document.createElement('li')
+                setMessage(message)
+              });
+            }
+
+            function setMessage(message) {
+              let messageList = document.querySelector('#message_list')
+              /*------------------------- メッセージの項目 -------------------------*/
+              let messageWrap = document.createElement('li')
+
+              /*------------------------- メッセージ内容 -------------------------*/
+              let messageContent = document.createElement('p')
+              messageContent.innerText = message.message
+
+              /*------------------------- メッセージのアイコン -------------------------*/
+              let messageIcon = document.createElement('span')
+              messageIcon.innerText = message.message.substr(0, 1)
+              messageIcon.classList.add('icon');
+              messageIcon.classList.add('fx_al_center');
+              messageIcon.classList.add('fx_ju_center');
+              messageIcon.classList.add('icon_col_1');
+
+              /*------------------------- 自分のメッセージは右 それ以外は左 -------------------------*/
+              if (message.chat_room_member_id == chatRoomMemberId) {
                 messageWrap.classList.add('right_messege');
-
-                /*------------------------- メッセージ内容 -------------------------*/
-                let messageContent = document.createElement('p')
-                messageContent.innerText = message.message
-
-                /*------------------------- メッセージのアイコン -------------------------*/
-                let messageIcon = document.createElement('span')
-                messageIcon.classList.add('icon');
-                messageIcon.classList.add('fx_al_center');
-                messageIcon.classList.add('fx_ju_center');
-                messageIcon.classList.add('icon_col_1');
-
                 messageWrap.appendChild(messageContent);
                 messageWrap.appendChild(messageIcon);
-                messageList.appendChild(messageWrap)
-              });
+              } else {
+                messageWrap.classList.add('left_messege');
+                messageWrap.appendChild(messageIcon);
+                messageWrap.appendChild(messageContent);
+              }
+              messageList.appendChild(messageWrap)
             }
           </script>
         </body>

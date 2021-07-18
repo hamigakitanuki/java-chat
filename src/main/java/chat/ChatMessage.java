@@ -66,7 +66,7 @@ public class ChatMessage extends HttpServlet {
 	    List<String> messages = new ArrayList<String>();
 	    for(ChatRecordBean record : chatRecordArray){
 	    	System.out.println(record.getMessage());
-	    	messages.add(String.format("{\"user_name\":\"%s\",\"message\": \"%s\"}", record.getName(), record.getMessage()));
+	    	messages.add(String.format("{\"user_name\":\"%s\",\"message\": \"%s\", \"chat_room_member_id\": %d}", record.getName(), record.getMessage(), record.getChatRoomMemberId()));
 	    }
 	    
 	    PrintWriter out = response.getWriter();
