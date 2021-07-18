@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.bean.ChatBean;
 import dao.bean.ChatRecordBean;
+import dao.bean.ChatRoomMemberBean;
 import dao.dao.ChatDAO;
+import dao.dao.ChatRoomMemberDAO;
 
 /**
  * Servlet implementation class Chat
@@ -55,12 +57,21 @@ public class ChatMessage extends HttpServlet {
 //    response.getWriter().append("Session In OK");
 		
 		/* チャットルームIDを取得 */
-		String chatRoomId = request.getParameter("chat_room_id");
+		int chatRoomId    = Integer.parseInt(request.getParameter("chat_room_id"));
+		int userId        = (int)request.getSession().getAttribute("userId");
+		
+		// チャットルームメンバーIDを取得
+		ChatRoomMemberBean chatRoomMemberBean;
+		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
+		chatRoomMemberDao.setWhere(String.format("user_id = %d", userId));
+		chatRoomMemberDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
+	    chatRoomMemberBean = chatRoomMemberDao.getBean();
+	    int chatRoomMemberId =  chatRoomMemberBean.getRecordArray().get(0).getId();
 		
 		/* 指定のチャットルームのメッセージを取得 */
 		ChatBean chatBean;
 	    ChatDAO chatDao = new ChatDAO();
-	    chatDao.setWhere(String.format("chat_room_id = %s", chatRoomId));
+	    chatDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
 	    chatBean = chatDao.getBean();
 	    ArrayList<ChatRecordBean> chatRecordArray = chatBean.getRecordArray();
 	    List<String> messages = new ArrayList<String>();
@@ -73,7 +84,7 @@ public class ChatMessage extends HttpServlet {
         response.setContentType("application/json");
 //        response.setCharacterEncoding("UTF-8");
         
-        String jsonArray = String.format("{\"messages\": [%s]}", String.join(",", messages));
+        String jsonArray = String.format("{\"messages\": [%s], \"chat_room_member_id\":%d}", String.join(",", messages), chatRoomMemberId);
         out.print(jsonArray);
         out.flush();
 	}
@@ -86,13 +97,21 @@ public class ChatMessage extends HttpServlet {
 		// パラメータを取得
 		String message = request.getParameter("message");
 		int chatRoomId = Integer.parseInt(request.getParameter("chat_room_id"));
-		int chatRoomMemberId = Integer.parseInt(request.getParameter("chat_room_member_id"));
+		int userId     = (int)request.getSession().getAttribute("userId");
+		
+		// チャットルームメンバーIDを取得
+		ChatRoomMemberBean chatRoomMemberBean;
+		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
+		chatRoomMemberDao.setWhere(String.format("user_id = %d", userId));
+		chatRoomMemberDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
+	    chatRoomMemberBean = chatRoomMemberDao.getBean();
+	    int chatRoomMemberId =  chatRoomMemberBean.getRecordArray().get(0).getId();
 	    
 		// 値をセット
 		ChatRecordBean chatRecordBeam = new ChatRecordBean();
 	    chatRecordBeam.setMessage(message);
 	    chatRecordBeam.setChatRoomMemberId(chatRoomMemberId);
-	    chatRecordBeam.setChatRoomId(chatRoomMemberId);
+	    chatRecordBeam.setChatRoomId(chatRoomId);
 	    chatRecordBeam.setType(1);
 
 	    ChatDAO dao = new ChatDAO();

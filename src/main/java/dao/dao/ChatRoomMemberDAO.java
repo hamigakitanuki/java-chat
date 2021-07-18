@@ -24,6 +24,7 @@ public class ChatRoomMemberDAO extends DAOBase {
 		while (rs.next()) {
 			// 値セット
 			ChatRoomMemberRecordBean record = new ChatRoomMemberRecordBean();
+			record.setId(rs.getInt("id"));
 			record.setUserId(rs.getInt("user_id"));
 			record.setChatRoomId(rs.getInt("chat_room_id"));
 

@@ -67,24 +67,24 @@
 
               <jsp:useBean id="chatRoomBean" class="dao.bean.ChatRoomBean" scope="session" />
               <!-- チャットルームが存在するときのみ表示 -->
-              <% if (chatRoomBean != null) { %>
-              <ul class="chat_room_list fx_column_block mt_30">
-                <% ArrayList<ChatRoomRecordBean> chatRoomRecordArray = chatRoomBean.getRecordArray();
-                  for(ChatRoomRecordBean record : chatRoomRecordArray){
-                  %>
-                  <li class="fx_al_center_block" onclick="getMessages(<%= record.getId() %>)">
+              <% if (chatRoomBean !=null) { %>
+                <ul class="chat_room_list fx_column_block mt_30">
+                  <% ArrayList<ChatRoomRecordBean> chatRoomRecordArray = chatRoomBean.getRecordArray();
+                    for(ChatRoomRecordBean record : chatRoomRecordArray){
+                    %>
+                    <li class="fx_al_center_block" onclick="getMessages(<%= record.getId() %>)">
 
-                    <span class="icon fx_al_center fx_ju_center icon_col_2">
-                      <%= record.getChatRoomName().substring(0, 1) %>
-                    </span>
-                    <p>
-                      <%= record.getChatRoomName() %>
-                    </p>
+                      <span class="icon fx_al_center fx_ju_center icon_col_2">
+                        <%= record.getChatRoomName().substring(0, 1) %>
+                      </span>
+                      <p>
+                        <%= record.getChatRoomName() %>
+                      </p>
 
-                  </li>
-                  <% } %>
-              </ul>
-              <% } %>
+                    </li>
+                    <% } %>
+                </ul>
+                <% } %>
             </aside>
 
             <div class="chat_main">
@@ -132,7 +132,7 @@
 
             /*------------------------- データ -------------------------*/
             var chatRoomId;
-            var chatRoomMemberId = 1;
+            var chatRoomMemberId;
 
             /*------------------------- メッセージ送信 -------------------------*/
             function sendMessage() {
@@ -186,8 +186,8 @@
                   console.log(data);
                   messages = data.messages;
                   console.log(data.messages, messages);
+                  chatRoomMemberId = data.chat_room_member_id;
                   setMessages(messages);
-
                 })
                 .fail(function () {
                   // 通信失敗時の処理を記述

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ChatRoomMemberRecordBean extends BaseRecordBean {
+  private int id;
   private int user_id;
   private int chat_room_id;
 
@@ -17,6 +18,14 @@ public class ChatRoomMemberRecordBean extends BaseRecordBean {
     return String.format("values(%d, %d, '%s')", user_id, chat_room_id, df.format(d));
   }
 
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+  
   public int getUserId() {
     return user_id;
   }
