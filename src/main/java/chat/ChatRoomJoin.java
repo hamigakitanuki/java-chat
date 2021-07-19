@@ -52,8 +52,8 @@ public class ChatRoomJoin extends HttpServlet {
 			chatRoomMemberRecod.setUserId(userId);
 			
 			// レコード保存
-			ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
-			chatRoomMemberDao.create(chatRoomMemberRecod);
+			ChatRoomMemberDAO chatRoomMemberInsertDao = new ChatRoomMemberDAO();
+			chatRoomMemberInsertDao.create(chatRoomMemberRecod);
 	    }
 
 		response.sendRedirect("Chat");
