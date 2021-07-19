@@ -19,6 +19,8 @@ public class DAOBase{
   Statement stmt;
   String tableName;
   String columns;
+  String limit = "";
+  String order = "";
   List<String> wheres = new ArrayList<String>();
   
   protected void open() throws DatabaseException,SystemException{
@@ -51,7 +53,7 @@ public class DAOBase{
 
     try {
       stmt = con.createStatement();
-      String sql = String.format("select * " + "from %s", this.tableName) + this.getWhere();
+      String sql = String.format("select * " + "from %s", this.tableName) + this.getWhere()  + this.order + this.limit;
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
 	  object = resultSetToBean(rs);
@@ -91,6 +93,14 @@ public class DAOBase{
   
   public void setWhere(String where) {
 	  this.wheres.add(where);
+  }
+  
+  public void setLimit(int limit) {
+	  this.limit = String.format(" limit %d", limit);
+  }
+  
+  public void latest() {
+	  this.order = " order by created_at desc";
   }
   
   public String getWhere() {

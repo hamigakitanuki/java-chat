@@ -9,7 +9,7 @@
           <meta charset="UTF-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="shortcut icon" href="dist/chat.png">
+          <link rel="shortcut icon" href="dist/favicon.ico">
           <title>スマートチャット</title>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
           <link rel="stylesheet" href="dist/app.css">
@@ -17,7 +17,7 @@
 
         <body>
           <header class="header_nav fx_al_center">
-            <span class="fs_l"></span>
+            <span class="fs_l">スマートチャット</span>
           </header>
           <div class="chat">
             <!-- チャットルームリスト -->
@@ -97,7 +97,7 @@
               </div>
 
               <!-- メッセージ -->
-              <div class="chat_message_ilst">
+              <div id="message_list_wrap" class="chat_message_ilst">
                 <ul id="message_list" class="fx_column_block">
                   <li>チャットルームが選択されていません。</li>
                 </ul>

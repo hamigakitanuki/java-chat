@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
@@ -24,7 +22,7 @@ public class BroadSocket {
   // 接続したクライアントセッションを管理するリスト
   private static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
   // メッセージからユーザ名を取得するような正規表現パターン
-  private static Pattern pattern = Pattern.compile("^\\{\\{.*?\\}\\}");
+//  private static Pattern pattern = Pattern.compile("^\\{\\{.*?\\}\\}");
 
   private static Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
 
@@ -40,34 +38,34 @@ public class BroadSocket {
       //  キーとして使用できる。
       configs.put(userSession, config);
     }
-    this.bloadcastMessage(userSession, "ヒトが入場しました");
+//    this.bloadcastMessage(userSession, "ヒトが入場しました");
     // コンソールにメッセージを出力する。
-    System.out.println("client is now connected...");
+    System.out.println("client is now connected... " + String.format("chatRoom:%d", (int)((HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session)).getAttribute("chatRoomId")));
   }
   // WebSocket serverにブラウザ(client)がメッセージを転送すれば呼ばれる関数。
   @OnMessage
   public void handleMessage(String message, Session userSession) throws IOException {
-    // コンソールに受け取ったメッセージを出力する。
-    System.out.println(message);
-    // 初期ユーザ名
-    String name = "anonymous";
-    // メッセージから送信したユーザ名を取得する。
-    Matcher matcher = pattern.matcher(message);
-    // メッセージ例 : {{ユーザ名}} メッセージ
-    if (matcher.find()) {
-      name = matcher.group();
-    }
+//    // コンソールに受け取ったメッセージを出力する。
+//    System.out.println(message);
+//    // 初期ユーザ名
+//    String name = "anonymous";
+//    // メッセージから送信したユーザ名を取得する。
+//    Matcher matcher = pattern.matcher(message);
+//    // メッセージ例 : {{ユーザ名}} メッセージ
+//    if (matcher.find()) {
+//      name = matcher.group();
+//    }
     // closureのため、変数を常数に設定
-    final String msg = message.replaceAll(pattern.pattern(), "");
-    final String username = name.replaceFirst("^\\{\\{", "").replaceFirst("\\}\\}$", "");
+//    final String msg = message.replaceAll(pattern.pattern(), "");
+//    final String username = name.replaceFirst("^\\{\\{", "").replaceFirst("\\}\\}$", "");
     
-    this.bloadcastMessage(userSession, username + " => " + msg);
+//    this.bloadcastMessage(userSession, username + " => " + msg);
   }
   // WebSocket serverにブラウザ(client)が切断すれば呼ばれる関数。
   @OnClose
   public void handleClose(Session userSession) {
 	
-	this.bloadcastMessage(userSession, "ヒトが退出しました");
+//	this.bloadcastMessage(userSession, "ヒトが退出しました");
     // セッションリストから切断されたセッションを抜く。
     sessionUsers.remove(userSession);
     // コンソールにメッセージを出力する。
@@ -115,7 +113,7 @@ public class BroadSocket {
     });
   }
   
-  public static void bloadCastSend(String chatRoomId, String msg)
+  public static void bloadCastSend(int chatRoomId)
   {
 	    
 	    System.out.println(chatRoomId);
@@ -129,10 +127,10 @@ public class BroadSocket {
 	          // HttpSessionConfiguratorから設定したsessionを取得する。
 	          HttpSession httpSeesion = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 
-	          String userChatRoomId = (String) httpSeesion.getAttribute("chatRoomId");
-	          if (userChatRoomId.equals(chatRoomId)) {
+	          int userChatRoomId = (int) httpSeesion.getAttribute("chatRoomId");
+	          if (userChatRoomId == chatRoomId) {
 	            // 同じチャットルームIDのユーザーにメッセージ送信
-	            sessionUser.getBasicRemote().sendText(msg);
+	            sessionUser.getBasicRemote().sendText("");
 	          }
 	        }
 

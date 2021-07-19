@@ -76,10 +76,11 @@ public class ChatMessage extends HttpServlet {
 	    ArrayList<ChatRecordBean> chatRecordArray = chatBean.getRecordArray();
 	    List<String> messages = new ArrayList<String>();
 	    for(ChatRecordBean record : chatRecordArray){
-	    	System.out.println(record.getMessage());
 	    	messages.add(String.format("{\"user_name\":\"%s\",\"message\": \"%s\", \"chat_room_member_id\": %d}", record.getName(), record.getMessage(), record.getChatRoomMemberId()));
 	    }
 	    
+	    // ソケット通信で、チャットルームIDを使えるように、セッションにチャットルームIDを格納	    
+		request.getSession().setAttribute("chatRoomId", chatRoomId);
 	    
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -94,44 +95,43 @@ public class ChatMessage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		// パラメータを取得
 		String message = request.getParameter("message");
 		int chatRoomId = Integer.parseInt(request.getParameter("chat_room_id"));
-		int userId     = (int)request.getSession().getAttribute("userId");
-		
+		int userId = (int) request.getSession().getAttribute("userId");
+
 		// チャットルームメンバーIDを取得
 		ChatRoomMemberBean chatRoomMemberBean;
 		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
 		chatRoomMemberDao.setWhere(String.format("user_id = %d", userId));
 		chatRoomMemberDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
-	    chatRoomMemberBean = chatRoomMemberDao.getBean();
-	    int chatRoomMemberId =  chatRoomMemberBean.getRecordArray().get(0).getId();
-	    
+		chatRoomMemberBean = chatRoomMemberDao.getBean();
+		int chatRoomMemberId = chatRoomMemberBean.getRecordArray().get(0).getId();
+
 		// 値をセット
 		ChatRecordBean chatRecordBeam = new ChatRecordBean();
-	    chatRecordBeam.setMessage(message);
-	    chatRecordBeam.setChatRoomMemberId(chatRoomMemberId);
-	    chatRecordBeam.setChatRoomId(chatRoomId);
-	    chatRecordBeam.setType(1);
+		chatRecordBeam.setMessage(message);
+		chatRecordBeam.setChatRoomMemberId(chatRoomMemberId);
+		chatRecordBeam.setChatRoomId(chatRoomId);
+		chatRecordBeam.setType(1);
 
-	    ChatDAO dao = new ChatDAO();
-	    dao.create(chatRecordBeam);
-//		doGet(request, response);
-//		
-//		Part fPart = request.getPart("file");
-//	    String fName = (new StringBuilder(2)
-//	      .append("").append(System.currentTimeMillis())
-//	      .append("_").append(fPart.getSubmittedFileName()
-//	    ).toString());
-//	    String path = getServletContext().getRealPath("/upload");
-//	    System.out.println(path+File.separator+fName);
-//	    fPart.write(path+File.separator+fName);
-//
-//		//	ブロードキャスト処理
-//		String chatRoomId = (String)request.getSession().getAttribute("chatRoomId");
-//		BroadSocket.bloadCastSend(chatRoomId, "/upload/"+fName);
-//	    response.getWriter().append("Send Ok");
+		ChatDAO dao = new ChatDAO();
+		dao.create(chatRecordBeam);
+		// doGet(request, response);
+		//
+		// Part fPart = request.getPart("file");
+		// String fName = (new StringBuilder(2)
+		// .append("").append(System.currentTimeMillis())
+		// .append("_").append(fPart.getSubmittedFileName()
+		// ).toString());
+		// String path = getServletContext().getRealPath("/upload");
+		// System.out.println(path+File.separator+fName);
+		// fPart.write(path+File.separator+fName);
+		//
+		// // ブロードキャスト処理
+		// String chatRoomId = (String)request.getSession().getAttribute("chatRoomId");
+		BroadSocket.bloadCastSend(chatRoomId);
+		// response.getWriter().append("Send Ok");
 
 	}
 }

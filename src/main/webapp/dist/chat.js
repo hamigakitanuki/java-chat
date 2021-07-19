@@ -10,10 +10,10 @@ function sendMessage() {
   let message = messageForm.value
   messageForm.value = "";
 
-  setMessage({
-    message: message,
-    chat_room_member_id: chatRoomMemberId
-  });
+  // setMessage({
+  //   message: message,
+  //   chat_room_member_id: chatRoomMemberId
+  // });
   $.ajax({
     url: 'ChatMessage',
     type: 'POST',
@@ -42,7 +42,6 @@ function openChatRoom(chat_room_id) {
   chatRoomId = chat_room_id
   resetList();
   disconnect();
-  setSocket();
   getMessages();
 }
 /*------------------------- メッセージ一覧取得 -------------------------*/
@@ -64,6 +63,32 @@ function getMessages() {
       messages = data.messages;
       console.log(data.messages, messages);
       chatRoomMemberId = data.chat_room_member_id;
+      setMessages(messages);
+      setSocket();
+    })
+    .fail(function () {
+      // 通信失敗時の処理を記述
+      console.log("get messages error");
+      return false;
+    });
+
+}
+function getMessage() {
+  /* メッセージ一覧を削除 */
+  $.ajax({
+    url: 'ChatLatestMessage',
+    type: 'GET',
+    contentType: 'application/json',
+    // フォーム要素の内容をハッシュ形式に変換
+    data: {
+      'chat_room_id': chatRoomId
+    },
+    timeout: 5000,
+  })
+    .done(function (data) {
+      // 通信成功時の処理を記述
+      messages = data.messages;
+      console.log(data.messages, messages);
       setMessages(messages);
     })
     .fail(function () {
@@ -87,6 +112,7 @@ function setMessages(messages) {
 /*------------------------- メッセージ追加 -------------------------*/
 function setMessage(message) {
   let messageList = document.querySelector('#message_list')
+  let messageListWrap = document.querySelector('#message_list_wrap')
   /*------------------------- メッセージの項目 -------------------------*/
   let messageWrap = document.createElement('li')
 
@@ -113,6 +139,9 @@ function setMessage(message) {
     messageWrap.appendChild(messageContent);
   }
   messageList.appendChild(messageWrap)
+
+  messageListWrap.scrollTop = messageListWrap.scrollHeight
+
 }
 
 /*------------------------- ブロードキャスト関連 -------------------------*/
@@ -139,6 +168,8 @@ function setSocket() {
   webSocket.onmessage = function (message) {
     // コンソールにメッセージ出力
     console.log("receive");
+    getMessage();
+
   };
 }
 
