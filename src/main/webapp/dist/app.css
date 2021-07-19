@@ -1102,6 +1102,10 @@ a {
 .chat aside .chat_room_list li p {
   margin-left: 15px;
 }
+.chat aside .chat_room_list li .icon_wrap svg {
+  height: 20px;
+  width: 20px;
+}
 .chat aside .chat_room_list li:hover {
   background-color: #aaaaaa50;
 }

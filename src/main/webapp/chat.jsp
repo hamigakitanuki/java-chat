@@ -39,7 +39,7 @@
                   </button>
                 </div>
               </div>
-              <!-- Modal -->
+              <!-- チャットルーム作成 Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
@@ -68,6 +68,30 @@
                 </div>
               </div>
 
+              <!-- 招待 Modal -->
+              <div class="modal fade" id="inviteChatRoom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">チャットルーム招待</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="fx_column_block">
+                        招待URL
+                        <p id="invite_url" class="mt_15 fs_s"></p>
+                        <button class="mt_15 el_btn_theme">コピー</button>
+
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                      <button type="button" class="btn btn-primary" onclick="document.querySelector('#create_chat_room_form').submit()">作成</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <jsp:useBean id="chatRoomBean" class="dao.bean.ChatRoomBean" scope="request" />
               <!-- チャットルームが存在するときのみ表示 -->
               <% if (chatRoomBean !=null) { %>
@@ -75,14 +99,21 @@
                   <% ArrayList<ChatRoomRecordBean> chatRoomRecordArray = chatRoomBean.getRecordArray();
                     for(ChatRoomRecordBean record : chatRoomRecordArray){
                     %>
-                    <li class="fx_al_center_block" onclick="openChatRoom(<%= record.getId() %>)">
+                    <li class="fx_al_center_block fx_ju_between_block" onclick="openChatRoom(<%= record.getId() %>)">
+                      <div class="fx_al_center_block">
+                        <span class="icon fx_al_center fx_ju_center icon_col_2">
+                          <%= record.getChatRoomName().substring(0, 1) %>
+                        </span>
+                        <p>
+                          <%= record.getChatRoomName() %>
+                        </p>
+                      </div>
 
-                      <span class="icon fx_al_center fx_ju_center icon_col_2">
-                        <%= record.getChatRoomName().substring(0, 1) %>
+                      <span class="icon_wrap" data-bs-toggle="modal" data-bs-target="#inviteChatRoom" onclick="setUrl(<%= record.getId() %>)">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus" class="svg-inline--fa fa-user-plus fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                          <path fill="currentColor" d="M624 208h-64v-64c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v64h-64c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64v64c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-64h64c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm-400 48c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
+                        </svg>
                       </span>
-                      <p>
-                        <%= record.getChatRoomName() %>
-                      </p>
 
                     </li>
                     <% } %>

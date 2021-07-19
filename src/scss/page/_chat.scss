@@ -30,6 +30,12 @@
         p{
           margin-left: 15px;
         }
+        .icon_wrap{
+          svg{
+            height: 20px;
+            width: 20px;
+          }
+        }
         &:hover{
           background-color: #aaaaaa50;
         }

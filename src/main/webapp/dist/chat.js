@@ -37,6 +37,19 @@ function sendMessage() {
     });
 }
 
+/*------------------------- URLのセット -------------------------*/
+function setUrl(chatRoomId) {
+  let urlElement = document.querySelector('#invite_url');
+  urlElement.innerText = location.hostname + ":8080/WebSocket/ChatRoomJoin?chat_room_id=" + chatRoomId
+}
+
+/*------------------------- URLのコピー -------------------------*/
+function copyUrl() {
+  let urlElement = document.querySelector('invite_url');
+  urlElement.select();
+  document.execCommand("copy");
+}
+
 /*------------------------- チャットルームオープン -------------------------*/
 function openChatRoom(chat_room_id) {
   chatRoomId = chat_room_id
