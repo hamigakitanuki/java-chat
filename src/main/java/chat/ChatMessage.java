@@ -71,7 +71,7 @@ public class ChatMessage extends HttpServlet {
 		/* 指定のチャットルームのメッセージを取得 */
 		ChatBean chatBean;
 	    ChatDAO chatDao = new ChatDAO();
-	    chatDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
+	    chatDao.setWhere(String.format("chat.chat_room_id = %d", chatRoomId));
 	    chatBean = chatDao.getBean();
 	    ArrayList<ChatRecordBean> chatRecordArray = chatBean.getRecordArray();
 	    List<String> messages = new ArrayList<String>();

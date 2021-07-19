@@ -135,7 +135,7 @@ function setMessage(message) {
 
   /*------------------------- メッセージのアイコン -------------------------*/
   let messageIcon = document.createElement('span')
-  messageIcon.innerText = message.message.substr(0, 1)
+  messageIcon.innerText = message.user_name.substr(0, 1)
   messageIcon.classList.add('icon');
   messageIcon.classList.add('fx_al_center');
   messageIcon.classList.add('fx_ju_center');

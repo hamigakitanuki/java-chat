@@ -14,6 +14,7 @@ public class ChatDAO extends DAOBase {
 	public ChatDAO() {
 		tableName = "chat";
 		columns = "chat_room_member_id, chat_room_id, message, type, created_at";
+		join = " inner join chat_room_member on chat.chat_room_member_id = chat_room_member.id inner join user on chat_room_member.user_id = user.id";
 	}
 
 	@Override
@@ -25,9 +26,10 @@ public class ChatDAO extends DAOBase {
 			// 値セット
 			ChatRecordBean record = new ChatRecordBean();
 			record.setChatRoomMemberId(rs.getInt("chat_room_member_id"));
-			record.setChatRoomId(rs.getInt("chat_room_id"));
+			record.setChatRoomId(rs.getInt("chat.chat_room_id"));
 			record.setMessage(rs.getString("message"));
 			record.setType(rs.getInt("type"));
+			record.setName(rs.getString("name"));
 			record.setDate(rs.getString("created_at"));
 
 			bean.addRecord(record);

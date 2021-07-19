@@ -21,6 +21,7 @@ public class DAOBase{
   String columns;
   String limit = "";
   String order = "";
+  String join = "";
   List<String> wheres = new ArrayList<String>();
   
   protected void open() throws DatabaseException,SystemException{
@@ -53,7 +54,7 @@ public class DAOBase{
 
     try {
       stmt = con.createStatement();
-      String sql = String.format("select * " + "from %s", this.tableName) + this.getWhere()  + this.order + this.limit;
+      String sql = String.format("select * " + "from %s", this.tableName) + this.join + this.getWhere()  + this.order + this.limit;
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
 	  object = resultSetToBean(rs);

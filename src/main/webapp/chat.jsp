@@ -84,10 +84,6 @@
 
                       </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                      <button type="button" class="btn btn-primary" onclick="document.querySelector('#create_chat_room_form').submit()">作成</button>
-                    </div>
                   </div>
                 </div>
               </div>

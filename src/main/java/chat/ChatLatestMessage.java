@@ -57,7 +57,7 @@ public class ChatLatestMessage extends HttpServlet {
 		/* 指定のチャットルームのメッセージを取得 */
 		ChatBean chatBean;
 		ChatDAO chatDao = new ChatDAO();
-		chatDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
+		chatDao.setWhere(String.format("chat.chat_room_id = %d", chatRoomId));
 	    chatDao.setLimit(1);
 	    chatDao.latest();
 		chatBean = chatDao.getBean();
