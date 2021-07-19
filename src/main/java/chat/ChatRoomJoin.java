@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.bean.ChatRoomMemberBean;
 import dao.bean.ChatRoomMemberRecordBean;
 import dao.dao.ChatRoomMemberDAO;
 
@@ -35,15 +36,26 @@ public class ChatRoomJoin extends HttpServlet {
 		int chatRoomId  = Integer.parseInt(request.getParameter("chat_room_id"));
 		int userId      = (int)request.getSession().getAttribute("userId");
 		
-		// レコード作成
-		ChatRoomMemberRecordBean chatRoomMemberRecod = new ChatRoomMemberRecordBean();
-		chatRoomMemberRecod.setChatRoomId(chatRoomId);
-		chatRoomMemberRecod.setUserId(userId);
-		
-		// レコード保存
+		// チャットルームメンバーIDを取得
+		ChatRoomMemberBean chatRoomMemberBean;
 		ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
-		chatRoomMemberDao.create(chatRoomMemberRecod);
-		
+		chatRoomMemberDao.setWhere(String.format("user_id = %d", userId));
+		chatRoomMemberDao.setWhere(String.format("chat_room_id = %d", chatRoomId));
+	    chatRoomMemberBean = chatRoomMemberDao.getBean();
+	    boolean hasJoin =  (chatRoomMemberBean.getArraySize() > 0);
+	    
+	    // 未参加の場合参加する
+	    if (!hasJoin) {
+			// レコード作成
+			ChatRoomMemberRecordBean chatRoomMemberRecod = new ChatRoomMemberRecordBean();
+			chatRoomMemberRecod.setChatRoomId(chatRoomId);
+			chatRoomMemberRecod.setUserId(userId);
+			
+			// レコード保存
+			ChatRoomMemberDAO chatRoomMemberDao = new ChatRoomMemberDAO();
+			chatRoomMemberDao.create(chatRoomMemberRecod);
+	    }
+
 		response.sendRedirect("Chat");
 	}
 
