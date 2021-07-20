@@ -101,7 +101,7 @@ public class DAOBase{
   }
   
   public void latest() {
-	  this.order = " order by created_at desc";
+	  this.order = " order by " + this.tableName + ".created_at desc";
   }
   
   public String getWhere() {

@@ -13,7 +13,7 @@ public class ChatDAO extends DAOBase {
 
 	public ChatDAO() {
 		tableName = "chat";
-		columns = "chat_room_member_id, chat_room_id, message, type, created_at";
+		columns = "chat_room_member_id, chat_room_id, message, type, chat.created_at";
 		join = " inner join chat_room_member on chat.chat_room_member_id = chat_room_member.id inner join user on chat_room_member.user_id = user.id";
 	}
 
