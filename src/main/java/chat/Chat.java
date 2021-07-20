@@ -128,8 +128,8 @@ public class Chat extends HttpServlet {
 		fPart.write(path + File.separator + fName);
 
 		// ブロードキャスト処理
-		String chatRoomId = (String) request.getSession().getAttribute("chatRoomId");
-		BroadSocket.bloadCastSend(chatRoomId, "/upload/" + fName);
+		int chatRoomId = (int) request.getSession().getAttribute("chatRoomId");
+		BroadSocket.bloadCastSend(chatRoomId);
 		response.getWriter().append("Send Ok");
 
 	}
